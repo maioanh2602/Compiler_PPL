@@ -28,12 +28,14 @@ class Program(BaseBox):
         for i, statement in enumerate(self.statements):
             left = Node('statement_full')
             right = Node('program')
-            if i == len(self.statements) - 1:  # If last statement then stop appending Node("program") to the right !
+            # If last statement then stop appending Node("program") to the right !
+            if i == len(self.statements) - 1:
                 node.children.extend([left])
             else:
                 node.children.extend([left, right])
             node = right
-            result = statement.eval(left)  # Only now the statement.eval(node) does effect !
+            # Only now the statement.eval(node) does effect !
+            result = statement.eval(left)
         return result  # The result is not been used yet !
 
     def rep(self):
@@ -65,12 +67,14 @@ class Block(BaseBox):
         for i, statement in enumerate(self.statements):
             left = Node('statement_full')
             right = Node('block')
-            if i == len(self.statements) - 1:  # If last statement then stop appending Node("block") to the right !
+            # If last statement then stop appending Node("block") to the right !
+            if i == len(self.statements) - 1:
                 node.children.extend([left])
             else:
                 node.children.extend([left, right])
             node = right
-            result = statement.eval(left)  # Only now the statement.eval(node) does effect !
+            # Only now the statement.eval(node) does effect !
+            result = statement.eval(left)
         return result  # The result is not been used yet !
 
     def rep(self):
@@ -96,7 +100,8 @@ class If(BaseBox):
         node.children.extend([Node("{"), block, Node("}")])
         else_block = Node("block")
         if self.else_body is not None:
-            node.children.extend([Node("else"), Node("{"), else_block, Node("}")])
+            node.children.extend(
+                [Node("else"), Node("{"), else_block, Node("}")])
         if bool(condition) is True:
             return self.body.eval(block)
         else:
@@ -124,7 +129,8 @@ class Variable(BaseBox):
             self.value = self.state.variables[self.name]
             identifier.children.extend([Node(self.name, [Node(self.value)])])
             return self.value
-        identifier.children.extend([Node("Variable <%s> is not yet defined" % str(self.name))])
+        identifier.children.extend(
+            [Node("Variable <%s> is not yet defined" % str(self.name))])
         raise LogicError("Variable <%s> is not yet defined" % str(self.name))
 
     def to_string(self):
@@ -143,7 +149,8 @@ class FunctionDeclaration(BaseBox):
 
     def eval(self, node):
         identifier = Node(self.name)
-        node.children.extend([Node("FUNCTION"), identifier, Node("{"), Node("block"), Node("}")])
+        node.children.extend(
+            [Node("FUNCTION"), identifier, Node("{"), Node("block"), Node("}")])
         return self
 
     def to_string(self):
@@ -173,7 +180,8 @@ class BaseFunction(BaseBox):
         self.roundOffDigits = 10
 
     def eval(self, node):
-        raise NotImplementedError("This is abstract method from abstract class BaseFunction(BaseBox){...} !")
+        raise NotImplementedError(
+            "This is abstract method from abstract class BaseFunction(BaseBox){...} !")
 
     def to_string(self):
         return str(self.value)
@@ -189,7 +197,8 @@ class Absolute(BaseFunction):
     def eval(self, node):
         import re as regex
         expression = Node("expression")
-        node.children.extend([Node("ABSOLUTE"), Node("("), expression, Node(")"), Node(";")])
+        node.children.extend([Node("ABSOLUTE"), Node(
+            "("), expression, Node(")"), Node(";")])
         self.value = self.expression.eval(expression)
         if regex.search('^-?\d+(\.\d+)?$', str(self.value)):
             self.value = abs(self.value)
@@ -270,7 +279,8 @@ class Pow(BaseFunction):
     def eval(self, node):
         expression = Node("expression")
         expression2 = Node("expression")
-        node.children.extend([Node("POWER"), Node("("), expression, Node(","), expression2, Node(")")])
+        node.children.extend([Node("POWER"), Node(
+            "("), expression, Node(","), expression2, Node(")")])
         self.value = self.expression.eval(expression)
         self.value2 = self.expression2.eval(expression2)
         import re as regex
@@ -316,7 +326,8 @@ class Boolean(Constant):
             if value.lower().__eq__("false"):
                 self.value = False
         else:
-            raise TypeError("Cannot cast boolean value while initiating Constant !")
+            raise TypeError(
+                "Cannot cast boolean value while initiating Constant !")
 
     def rep(self):
         return 'Boolean(%s)' % self.value
@@ -394,10 +405,12 @@ class Assignment(BinaryOp):
             if dict(self.state.variables).get(var_name) is None:
                 identifier = Node("IDENTIFIER", [Node(var_name)])
                 expression = Node("expression")
-                node.children.extend([Node("LET"), identifier, Node("="), expression])
+                node.children.extend(
+                    [Node("LET"), identifier, Node("="), expression])
                 self.state.variables[var_name] = self.right.eval(expression)
                 # print(self.state.variables)
-                return self.state.variables  # Return the ParserState() that hold the variables.
+                # Return the ParserState() that hold the variables.
+                return self.state.variables
 
             # Otherwise raise error
             raise ImmutableError(var_name)
