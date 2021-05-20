@@ -19,8 +19,8 @@ class Parser:
             # A list of all token names accepted by the parser.
             ['STRING', 'INTEGER', 'FLOAT', 'BOOLEAN', 'PI', 'E',
              'PRINT', 'ABSOLUTE', 'SIN', 'COS', 'TAN', 'POWER',
-             'CONSOLE_INPUT', '(', ')', ';', ',', '{', '}',
-             'LET', 'AND', 'OR', 'NOT', 'IF', 'ELSE',
+             'INPUT', '(', ')', ';', ',', '{', '}',
+             'SET', 'AND', 'OR', 'IF', 'ELSE',
              '=', '==', '!=', '>=', '>', '<', '<=',
              'SUM', 'SUB', 'MUL', 'DIV', 'IDENTIFIER', 'FUNCTION'
              ],
@@ -28,11 +28,10 @@ class Parser:
             # disambiguate ambiguous production rules.
             precedence=(
                 ('left', ['FUNCTION']),
-                ('left', ['LET']),
+                ('left', ['SET']),
                 ('left', ['=']),
                 ('left', ['IF', 'ELSE', ';']),
                 ('left', ['AND', 'OR']),
-                ('left', ['NOT']),
                 ('left', ['==', '!=', '>=', '>', '<', '<=']),
                 ('left', ['SUM', 'SUB']),
                 ('left', ['MUL', 'DIV']),
@@ -107,10 +106,10 @@ class Parser:
                 return [Node("expression", p[0])]
             return Statement(p[0])
 
-        @self.pg.production('statement : LET IDENTIFIER = expression')
+        @self.pg.production('statement : SET IDENTIFIER = expression')
         def statement_assignment(state, p):
             if self.syntax is True:
-                return [Node("LET"), Node("IDENTIFIER", p[1]), Node("="), Node("expression", p[3])]
+                return [Node("SET"), Node("IDENTIFIER", p[1]), Node("="), Node("expression", p[3])]
             return Assignment(Variable(p[1].getstr(), state), p[3], state)
 
         @self.pg.production('statement_full : FUNCTION IDENTIFIER ( ) { block }')
@@ -118,12 +117,6 @@ class Parser:
             if self.syntax is True:
                 return [Node("FUNCTION"), Node("IDENTIFIER", p[1]), Node("("), Node(")"), Node("{"), Node("block", p[5]), Node("}")]
             return FunctionDeclaration(name=p[1].getstr(), args=None, block=p[5], state=state)
-
-        @self.pg.production('expression : NOT expression')
-        def expression_not(state, p):
-            if self.syntax is True:
-                return [Node("NOT"), Node("expression", p[1])]
-            return Not(p[1], state)
 
         @self.pg.production('expression : expression SUM expression')
         @self.pg.production('expression : expression SUB expression')
@@ -193,16 +186,16 @@ class Parser:
             else:
                 raise LogicError("Shouldn't be possible")
 
-        @self.pg.production('expression : CONSOLE_INPUT ( )')
+        @self.pg.production('expression : INPUT ( )')
         def program(state, p):
             if self.syntax is True:
-                return [Node("CONSOLE_INPUT"), Node("("), Node(")")]
+                return [Node("INPUT"), Node("("), Node(")")]
             return Input()
 
-        @self.pg.production('expression : CONSOLE_INPUT ( expression )')
+        @self.pg.production('expression : INPUT ( expression )')
         def program(state, p):
             if self.syntax is True:
-                return [Node("CONSOLE_INPUT"), Node("("), Node("expression", p[2]), Node(")")]
+                return [Node("INPUT"), Node("("), Node("expression", p[2]), Node(")")]
             return Input(expression=p[2], state=state)
 
         @self.pg.production('statement : PRINT ( )')

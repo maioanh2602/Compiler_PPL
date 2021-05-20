@@ -7,58 +7,70 @@ from pprint import pprint
 import traceback
 
 basic_assignment = """
-    let initial = 60;
-    let rate = 2;
-    let position = initial + rate * 60;
-    print(position);
-    print(rate);
+    set a = 60;
+    set b = 2;
+    set c = a + b * 60;
+    print(c);
+    print(a);
 """
 function_declaration = """
 function main() {
-    let initial = 60;
-    let rate = 2;
-    let position = initial + rate * 60;
-    print(position);
+    set a = 60;
+    set b = 2;
+    set c = b + a * 60;
+    print(c);
 }
 main();
 """
 if_else_statement = """
-if (False) {
-    print(False == (5 != 5));
-    print(5.1111 != 5.1);
-    print(5 != 5);
-    print(not True);
+set a = 10;
+set b = 15;
+if (a > b) {
+    print(a + 10);
+    print(21.34 + b);
+    print(tan(a * 6));
 } else {
     print(abs(3.5 - 4));
     print(sin(3.5 - 4));
     print(cos(__E__ - __PI__));
     print(tan(__PI__ - __E__));
-    print(pow(-2, 5));
+    print(pow(-2, a));
 }
 """
 assignment_and_variables = """
-    let a = 5 - 2;
-    let b = 5;
+    set a = 5 - 2;
+    set b = 5;
     print(sin(a));
     print(a); print(b); print(b - a);
     print(not False);
 """
 call_declared_functions = """
+function sum(){
+    set a = 5;
+    set b = 7;
+    print(a + b + 10);
+}
 function userDefined() {
-    let pi = __PI__;
-    let e = __E__;
+    set pi = __PI__;
+    set e = __E__;
+    print(pi);
+    print(e);
     print(2 * (pi + e - 1) / 3);
     print(abs(e - pi));
     print(sin(pi));
     print(cos(pi));
     print(tan(pi));
     print(pow(pi, e));
+    print(__PI__);
+    print(__E__);
 }
 
 function main() {
-    let i = input("Please input the number: ");
+    set i = input("Please input the number: ");
+    
     if (i > 0) {
         print("-> Call User Defined Function !");
+        sum();
         userDefined();
     } else {
         print();
@@ -72,7 +84,7 @@ main();
 lexer = Lexer().build()  # Build the lexer using LexerGenerator
 tokens: LexerStream
 try:
-    tokens = lexer.lex(call_declared_functions)  # Stream the input to analysis the lexical syntax
+    tokens = lexer.lex(if_else_statement)  # Stream the input to analysis the lexical syntax
     tokenType = map(lambda x: x.gettokentype(), copy(tokens))
     tokenName = map(lambda x: x.getstr(), copy(tokens))
     pprint(list(copy(tokens)))

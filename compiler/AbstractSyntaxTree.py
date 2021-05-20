@@ -394,7 +394,7 @@ class Assignment(BinaryOp):
             if dict(self.state.variables).get(var_name) is None:
                 identifier = Node("IDENTIFIER", [Node(var_name)])
                 expression = Node("expression")
-                node.children.extend([Node("LET"), identifier, Node("="), expression])
+                node.children.extend([Node("SET"), identifier, Node("="), expression])
                 self.state.variables[var_name] = self.right.eval(expression)
                 # print(self.state.variables)
                 return self.state.variables  # Return the ParserState() that hold the variables.
@@ -505,20 +505,6 @@ class Or(BinaryOp):
         return self.left.eval(left) or self.right.eval(right)
 
 
-class Not(BaseBox):
-    def __init__(self, expression, state):
-        self.value = expression
-        self.state = state
-
-    def eval(self, node):
-        expression = Node("expression")
-        node.children.extend([Node("Not"), expression])
-        self.value = self.value.eval(expression)
-        if isinstance(self.value, bool):
-            return not bool(self.value)
-        raise LogicError("Cannot 'not' that")
-
-
 class Print(BaseBox):
     def __init__(self, expression=None, state=None):
         self.value = expression
@@ -541,7 +527,7 @@ class Input(BaseBox):
         self.state = state
 
     def eval(self, node):
-        node.children.extend([Node("CONSOLE_INPUT"), Node("(")])
+        node.children.extend([Node("INPUT"), Node("(")])
         if self.value is None:
             result = input()
         else:
