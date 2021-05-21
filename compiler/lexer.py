@@ -7,59 +7,58 @@ class Lexer:
         self.__add_tokens()
 
     def __add_tokens(self):
-        # Constant
-        self.lexer.add('E', r'-?__E__')
-        self.lexer.add('PI', r'-?__PI__')
-        self.lexer.add('FLOAT', r'-?\d+\.\d+')
-        self.lexer.add('INTEGER', r'-?\d+')
-        self.lexer.add('STRING', r'(""".*""")|(".*")|(\'.*\')')
-        self.lexer.add('BOOLEAN', r'true(?!\w)|false(?!\w)|True(?!\w)|False(?!\w)|TRUE(?!\w)|FALSE(?!\w)')
+        # Constant Contractor
+        self.lexer.add('e', r'-?__E__')
+        self.lexer.add('Pi', r'-?__PI__')
+        self.lexer.add('integer', r'-?\d+')
+        self.lexer.add('float', r'-?\d+\.\d+')
+        self.lexer.add('string', r'(""".*""")|(".*")|(\'.*\')')
+        self.lexer.add('boolean', r'true(?!\w)|false(?!\w)|True(?!\w)|False(?!\w)|TRUE(?!\w)|FALSE(?!\w)')
 
-        # Mathematical Operators
-        self.lexer.add('SUM', r'\+')
-        self.lexer.add('SUB', r'\-')
-        self.lexer.add('MUL', r'\*')
-        self.lexer.add('DIV', r'\/')
+        # Mathematical Contractor
+        self.lexer.add('sum', r'\+')
+        self.lexer.add('sub', r'\-')
+        self.lexer.add('mul', r'\*')
+        self.lexer.add('div', r'\/')
 
-        # Binary Operator
-        self.lexer.add('AND', r'and(?!\w)')
-        self.lexer.add('OR', r'or(?!\w)')
+        # Binary Contractor
         self.lexer.add('==', r'\=\=')
         self.lexer.add('>=', r'\>\=')
         self.lexer.add('<=', r'\<\=')
         self.lexer.add('!=', r'\!\=')
         self.lexer.add('>', r'\>')
         self.lexer.add('<', r'\<')
-        self.lexer.add('=', r'\=')
+        self.lexer.add('and', r'and(?!\w)')
+        self.lexer.add('or', r'or(?!\w)')
 
-        # Statement
-        self.lexer.add('IF', r'if(?!\w)')
-        self.lexer.add('ELSE', r'else(?!\w)')
+        # Statement Contractor
+        self.lexer.add('if', r'if(?!\w)')
+        self.lexer.add('else', r'else(?!\w)')
 
-        # Semi Colon
+        # Semi Colon Contractor
         self.lexer.add(',', r'\,')
         self.lexer.add(';', r'\;')
 
-
-        # Parenthesis
+        # Parenthesis Contractor
         self.lexer.add('(', r'\(')
         self.lexer.add(')', r'\)')
         self.lexer.add('{', r'\{')
         self.lexer.add('}', r'\}')
 
-        # Function
-        self.lexer.add('INPUT', r'input')
-        self.lexer.add('FUNCTION', r'function')
-        self.lexer.add('PRINT', r'print')
-        self.lexer.add('SIN', r'sin')
-        self.lexer.add('COS', r'cos')
-        self.lexer.add('TAN', r'tan')
-        self.lexer.add('POWER', r'pow')
-        self.lexer.add('ABSOLUTE', r'abs')
+        # Function Contractor
+        self.lexer.add('input', r'input')
+        self.lexer.add('function', r'function')
+        self.lexer.add('print', r'print')
+        self.lexer.add('sin', r'sin')
+        self.lexer.add('cos', r'cos')
+        self.lexer.add('tan', r'tan')
+        self.lexer.add('power', r'pow')
+        self.lexer.add('absolute', r'abs')
 
-        # Assignment
-        self.lexer.add('SET', r'set(?!\w)')
-        self.lexer.add('DEFINED', "[a-zA-Z_][a-zA-Z0-9_]*")
+        # Assignment Contractor
+        self.lexer.add('set', r'set(?!\w)')
+        self.lexer.add('identifier', "[a-zA-Z_][a-zA-Z0-9_]*")
+        self.lexer.add('=', r'\=')
 
         # Ignore spaces
         self.lexer.ignore('\s+')
