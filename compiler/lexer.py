@@ -25,9 +25,9 @@ class Lexer:
         self.lexer.add('AND', r'and(?!\w)')
         self.lexer.add('OR', r'or(?!\w)')
         self.lexer.add('==', r'\=\=')
-        self.lexer.add('!=', r'\!\=')
         self.lexer.add('>=', r'\>\=')
         self.lexer.add('<=', r'\<\=')
+        self.lexer.add('!=', r'\!\=')
         self.lexer.add('>', r'\>')
         self.lexer.add('<', r'\<')
         self.lexer.add('=', r'\=')
@@ -35,11 +35,11 @@ class Lexer:
         # Statement
         self.lexer.add('IF', r'if(?!\w)')
         self.lexer.add('ELSE', r'else(?!\w)')
-        self.lexer.add('NOT', r'not(?!\w)')
 
         # Semi Colon
-        self.lexer.add(';', r'\;')
         self.lexer.add(',', r'\,')
+        self.lexer.add(';', r'\;')
+
 
         # Parenthesis
         self.lexer.add('(', r'\(')
@@ -48,18 +48,18 @@ class Lexer:
         self.lexer.add('}', r'\}')
 
         # Function
-        self.lexer.add('CONSOLE_INPUT', r'input')
+        self.lexer.add('INPUT', r'input')
         self.lexer.add('FUNCTION', r'function')
         self.lexer.add('PRINT', r'print')
-        self.lexer.add('ABSOLUTE', r'abs')
         self.lexer.add('SIN', r'sin')
         self.lexer.add('COS', r'cos')
         self.lexer.add('TAN', r'tan')
         self.lexer.add('POWER', r'pow')
+        self.lexer.add('ABSOLUTE', r'abs')
 
         # Assignment
-        self.lexer.add('LET', r'let(?!\w)')
-        self.lexer.add('IDENTIFIER', "[a-zA-Z_][a-zA-Z0-9_]*")
+        self.lexer.add('SET', r'set(?!\w)')
+        self.lexer.add('DEFINED', "[a-zA-Z_][a-zA-Z0-9_]*")
 
         # Ignore spaces
         self.lexer.ignore('\s+')
