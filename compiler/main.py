@@ -1,6 +1,7 @@
 from compiler.lexer import Lexer
 from compiler.parser import Parser, ParserState
 from compiler.JSONparsedTree import Node, write
+from compiler.symtab import SymTab
 from rply.lexer import LexerStream
 from copy import copy
 from pprint import pprint
@@ -97,3 +98,9 @@ finally:
     print("------------------------------Declared Variables & Functions are:------------------------------")
     pprint(SymbolTable.variables)
     pprint(SymbolTable.functions)
+
+    var = [str(var_key) for var_key in SymbolTable.variables.keys()]
+    func = [str(func_key) for func_key in SymbolTable.functions.keys()]
+    symTab = SymTab(var, func)
+    print("------------------------------Symbol Table(s):------------------------------")
+    SymTab.draw(symTab)
