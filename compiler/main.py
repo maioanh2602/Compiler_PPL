@@ -7,24 +7,24 @@ from pprint import pprint
 import traceback
 
 basicProgram = """
-    set a = 60;
-    set b = 2;
-    set c = a + b * 60;
+    let a = 60;
+    let b = 2;
+    let c = a + b * 60;
     print(c);
     print(a);
 """
 declareCallFunc = """
 function main() {
-    set a = 60;
-    set b = 2;
-    set c = b + a * 60;
+    let a = 60;
+    let b = 2;
+    let c = b + a * 60;
     print(c);
 }
 main();
 """
 ifElse = """
-set a = 10;
-set b = 15;
+let a = 10;
+let b = 15;
 if (a > b) {
     print(a + 10);
     print(21.34 + b);
@@ -38,8 +38,8 @@ if (a > b) {
 }
 """
 someOp = """
-    set a = 5 - 2;
-    set b = 5;
+    let a = 5 - 2;
+    let b = 5;
     print(sin(a));
     print(cos(b));
     print(abs(a-b));
@@ -47,13 +47,13 @@ someOp = """
 """
 userDefinedFunc = """
 function sum(){
-    set a = 5;
-    set b = 7;
+    let a = 5;
+    let b = 7;
     print(a + b + 10);
 }
 function userDefined() {
-    set pi = __PI__;
-    set e = __E__;
+    let pi = __PI__;
+    let e = __E__;
     print(pi);
     print(e);
     print(2 * (pi + e - 1) / 3);
@@ -67,7 +67,7 @@ function userDefined() {
 }
 
 function main() {
-    set i = input("Input a number: ");
+    let i = input("Input a number: ");
     if (i > 5) {
         print();
         print("Call User Defined Function: ");

@@ -39,7 +39,6 @@ class Lexer:
         self.lexer.add(',', r'\,')
         self.lexer.add(';', r'\;')
 
-
         # Parenthesis
         self.lexer.add('(', r'\(')
         self.lexer.add(')', r'\)')
@@ -57,8 +56,8 @@ class Lexer:
         self.lexer.add('ABSOLUTE', r'abs')
 
         # Assignment
-        self.lexer.add('SET', r'set(?!\w)')
-        self.lexer.add('DEFINED', "[a-zA-Z_][a-zA-Z0-9_]*")
+        self.lexer.add('LET', r'let(?!\w)')
+        self.lexer.add('IDENTIFIER', "[a-zA-Z_][a-zA-Z0-9_]*")
 
         # Ignore spaces
         self.lexer.ignore('\s+')

@@ -20,7 +20,7 @@ class Parser:
             ['STRING', 'INTEGER', 'FLOAT', 'BOOLEAN', 'PI', 'E',
              'PRINT', 'ABSOLUTE', 'SIN', 'COS', 'TAN', 'POWER',
              'INPUT', '(', ')', ';', ',', '{', '}',
-             'SET', 'AND', 'OR', 'IF', 'ELSE',
+             'LET', 'AND', 'OR', 'IF', 'ELSE',
              '=', '==', '!=', '>=', '>', '<', '<=',
              'SUM', 'SUB', 'MUL', 'DIV', 'IDENTIFIER', 'FUNCTION'
              ],
@@ -28,7 +28,7 @@ class Parser:
             # disambiguate ambiguous production rules.
             precedence=(
                 ('left', ['FUNCTION']),
-                ('left', ['SET']),
+                ('left', ['LET']),
                 ('left', ['=']),
                 ('left', ['IF', 'ELSE', ';']),
                 ('left', ['AND', 'OR']),
@@ -106,10 +106,10 @@ class Parser:
                 return [Node("expression", p[0])]
             return Statement(p[0])
 
-        @self.pg.production('statement : SET IDENTIFIER = expression')
+        @self.pg.production('statement : LET IDENTIFIER = expression')
         def statement_assignment(state, p):
             if self.syntax is True:
-                return [Node("SET"), Node("IDENTIFIER", p[1]), Node("="), Node("expression", p[3])]
+                return [Node("LET"), Node("IDENTIFIER", p[1]), Node("="), Node("expression", p[3])]
             return Assignment(Variable(p[1].getstr(), state), p[3], state)
 
         @self.pg.production('statement_full : FUNCTION IDENTIFIER ( ) { block }')
