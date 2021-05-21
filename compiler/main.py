@@ -7,17 +7,17 @@ from pprint import pprint
 import traceback
 
 basic_assignment = """
-    let initial = 60;
-    let rate = 2;
-    let position = initial + rate * 60;
+    set initial = 60;
+    set rate = 2;
+    set position = initial + rate * 60;
     print(position);
     print(rate);
 """
 function_declaration = """
 function main() {
-    let initial = 60;
-    let rate = 2;
-    let position = initial + rate * 60;
+    set initial = 60;
+    set rate = 2;
+    set position = initial + rate * 60;
     print(position);
 }
 main();
@@ -37,16 +37,16 @@ if (False) {
 }
 """
 assignment_and_variables = """
-    let a = 5 - 2;
-    let b = 5;
+    set a = 5 - 2;
+    set b = 5;
     print(sin(a));
     print(a); print(b); print(b - a);
     print(not False);
 """
 call_declared_functions = """
 function userDefined() {
-    let pi = __PI__;
-    let e = __E__;
+    set pi = __PI__;
+    set e = __E__;
     print(2 * (pi + e - 1) / 3);
     print(abs(e - pi));
     print(sin(pi));
@@ -56,7 +56,7 @@ function userDefined() {
 }
 
 function main() {
-    let i = input("Please input the number: ");
+    set i = input("Please input the number: ");
     if (i > 0) {
         print("-> Call User Defined Function !");
         userDefined();
