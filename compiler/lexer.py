@@ -30,7 +30,6 @@ class Lexer:
         self.lexer.add('!=', r'\!\=')
         self.lexer.add('>', r'\>')
         self.lexer.add('<', r'\<')
-        self.lexer.add('=', r'\=')
 
         # Statement
         self.lexer.add('IF', r'if(?!\w)')
@@ -58,6 +57,7 @@ class Lexer:
         # Assignment
         self.lexer.add('LET', r'let(?!\w)')
         self.lexer.add('IDENTIFIER', "[a-zA-Z_][a-zA-Z0-9_]*")
+        self.lexer.add('=', r'\=')
 
         # Ignore spaces
         self.lexer.ignore('\s+')
