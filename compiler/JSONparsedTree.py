@@ -2,21 +2,28 @@ import json
 
 
 class Node:
-    def __init__(self, arg_name, arg_children=None):
-        self.text = {"name": arg_name}
-        if arg_children is None:
-            self.children = []
+    def __init__(self, node_name, child_name=None):
+        self.text = {"name": node_name}
+        # self.image = "../treant-js-master/background.jpg"
+        if child_name is not None:
+            self.children = child_name
         else:
-            self.children = arg_children
+            self.children = []
 
 
-class ParsedTree:
+class ParsedTreeConfig:
     def __init__(self, root: Node):
         self.chart = {
-            "container": "#parsed-tree",
+            "container": "#compiler-parse-tree",
             "connectors": {
-                "type": "straight"
-            }
+                "type": "straight",
+                "style": {
+                    "stroke": 'red',
+                    "stroke-width": 3,
+                    "arrow-end": ">",
+                },
+            },
+            "levelSeparation": 60
         }
         self.nodeStructure = root
 
@@ -27,7 +34,6 @@ class Wrapper:
 
 
 def serialize(obj):
-    """JSON serializer for objects not serializable by default json code"""
     try:
         return obj.__dict__
     except AttributeError:
@@ -35,7 +41,7 @@ def serialize(obj):
 
 
 def write(root: Node, filename: str):
-    data = json.dumps(ParsedTree(root), default=serialize)
+    json_data = json.dumps(ParsedTreeConfig(root), default=serialize)
     with open('../treant-js-master/%s.json' % filename, 'w') as f:
         f.write("JSONParsedTree = ")
-        f.write(data)
+        f.write(json_data)
