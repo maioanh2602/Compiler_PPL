@@ -14,44 +14,52 @@ class Lexer:
         self.lexer.add('INTEGER', r'-?\d+')
         self.lexer.add('STRING', r'(""".*""")|(".*")|(\'.*\')')
         self.lexer.add('BOOLEAN', r'true(?!\w)|false(?!\w)|True(?!\w)|False(?!\w)|TRUE(?!\w)|FALSE(?!\w)')
+
         # Mathematical Operators
         self.lexer.add('SUM', r'\+')
         self.lexer.add('SUB', r'\-')
         self.lexer.add('MUL', r'\*')
         self.lexer.add('DIV', r'\/')
+
         # Binary Operator
         self.lexer.add('AND', r'and(?!\w)')
         self.lexer.add('OR', r'or(?!\w)')
         self.lexer.add('==', r'\=\=')
-        self.lexer.add('!=', r'\!\=')
         self.lexer.add('>=', r'\>\=')
         self.lexer.add('<=', r'\<\=')
+        self.lexer.add('!=', r'\!\=')
         self.lexer.add('>', r'\>')
         self.lexer.add('<', r'\<')
         self.lexer.add('=', r'\=')
+
         # Statement
         self.lexer.add('IF', r'if(?!\w)')
         self.lexer.add('ELSE', r'else(?!\w)')
         # Semi Colon
-        self.lexer.add(';', r'\;')
         self.lexer.add(',', r'\,')
+        self.lexer.add(';', r'\;')
+
+
         # Parenthesis
         self.lexer.add('(', r'\(')
         self.lexer.add(')', r'\)')
         self.lexer.add('{', r'\{')
         self.lexer.add('}', r'\}')
+
         # Function
         self.lexer.add('INPUT', r'input')
         self.lexer.add('FUNCTION', r'function')
         self.lexer.add('PRINT', r'print')
-        self.lexer.add('ABSOLUTE', r'abs')
         self.lexer.add('SIN', r'sin')
         self.lexer.add('COS', r'cos')
         self.lexer.add('TAN', r'tan')
         self.lexer.add('POWER', r'pow')
+        self.lexer.add('ABSOLUTE', r'abs')
+
         # Assignment
         self.lexer.add('SET', r'set(?!\w)')
-        self.lexer.add('IDENTIFIER', "[a-zA-Z_][a-zA-Z0-9_]*")
+        self.lexer.add('DEFINED', "[a-zA-Z_][a-zA-Z0-9_]*")
+
         # Ignore spaces
         self.lexer.ignore('\s+')
 
