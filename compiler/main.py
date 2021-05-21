@@ -6,14 +6,14 @@ from copy import copy
 from pprint import pprint
 import traceback
 
-basic_assignment = """
+basicProgram = """
     set a = 60;
     set b = 2;
     set c = a + b * 60;
     print(c);
     print(a);
 """
-function_declaration = """
+declareCallFunc = """
 function main() {
     set a = 60;
     set b = 2;
@@ -22,7 +22,7 @@ function main() {
 }
 main();
 """
-if_else_statement = """
+ifElse = """
 set a = 10;
 set b = 15;
 if (a > b) {
@@ -37,14 +37,15 @@ if (a > b) {
     print(pow(-2, a));
 }
 """
-assignment_and_variables = """
+someOp = """
     set a = 5 - 2;
     set b = 5;
     print(sin(a));
-    print(a); print(b); print(b - a);
-    print(not False);
+    print(cos(b));
+    print(abs(a-b));
+    print(pow(a,b));
 """
-call_declared_functions = """
+userDefinedFunc = """
 function sum(){
     set a = 5;
     set b = 7;
@@ -66,15 +67,15 @@ function userDefined() {
 }
 
 function main() {
-    set i = input("Please input the number: ");
-    
-    if (i > 0) {
-        print("-> Call User Defined Function !");
-        sum();
+    set i = input("Input a number: ");
+    if (i > 5) {
+        print();
+        print("Call User Defined Function: ");
         userDefined();
     } else {
         print();
-        print("Input value equal to or less than 0 !");
+        print("Call Sum Function: ");
+        sum();
     }
 }
 
@@ -84,7 +85,7 @@ main();
 lexer = Lexer().build()  # Build the lexer using LexerGenerator
 tokens: LexerStream
 try:
-    tokens = lexer.lex(if_else_statement)  # Stream the input to analysis the lexical syntax
+    tokens = lexer.lex(userDefinedFunc)  # Stream the input to analysis the lexical syntax
     tokenType = map(lambda x: x.gettokentype(), copy(tokens))
     tokenName = map(lambda x: x.getstr(), copy(tokens))
     pprint(list(copy(tokens)))
@@ -106,6 +107,7 @@ except (BaseException, Exception):
 finally:
     write(syntaxRoot, "SyntaxAnalyzer")
     write(semanticRoot, "SemanticAnalyzer")
+    print("-----------------------------------------Symbol Table------------------------------------------")
     print("------------------------------Declared Variables & Functions are:------------------------------")
     pprint(SymbolTable.variables)
     pprint(SymbolTable.functions)

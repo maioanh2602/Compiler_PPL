@@ -55,7 +55,5 @@ class Lexer:
         # Ignore spaces
         self.lexer.ignore('\s+')
 
-        # self.lexer.add('OPT_LINE', r'\n*')
-
     def build(self):
         return self.lexer.build()

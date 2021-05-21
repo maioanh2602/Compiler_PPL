@@ -116,7 +116,7 @@ class Parser:
         def statement_func_noargs(state, p):
             if self.syntax is True:
                 return [Node("FUNCTION"), Node("IDENTIFIER", p[1]), Node("("), Node(")"), Node("{"), Node("block", p[5]), Node("}")]
-            return FunctionDeclaration(name=p[1].getstr(), args=None, block=p[5], state=state)
+            return DeclareFunction(name=p[1].getstr(), args=None, block=p[5], state=state)
 
         @self.pg.production('expression : expression SUM expression')
         @self.pg.production('expression : expression SUB expression')

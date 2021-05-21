@@ -134,7 +134,7 @@ class Variable(BaseBox):
         return 'Variable(%s)' % self.name
 
 
-class FunctionDeclaration(BaseBox):
+class DeclareFunction(BaseBox):
     def __init__(self, name, args, block, state):
         self.name = name
         self.args = args
@@ -580,3 +580,4 @@ class Statement(BaseBox):
         expression = Node("expression")
         node.children.extend([expression])
         return self.expression.eval(expression)
+
