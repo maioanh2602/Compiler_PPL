@@ -405,7 +405,7 @@ class Assignment(BinaryOp):
             if dict(self.state.variables).get(var_name) is None:
                 identifier = Node("IDENTIFIER", [Node(var_name)])
                 expression = Node("expression")
-                node.children.extend([Node("SET"), identifier, Node("="), expression])
+                node.children.extend([Node("LET"), identifier, Node("="), expression])
                 self.state.variables[var_name] = self.right.eval(expression)
                 # print(self.state.variables)
                 # Return the ParserState() that hold the variables.
@@ -592,4 +592,5 @@ class Statement(BaseBox):
         expression = Node("expression")
         node.children.extend([expression])
         return self.expression.eval(expression)
+
 

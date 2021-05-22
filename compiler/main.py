@@ -57,7 +57,6 @@ function userDefined() {
     let e = __E__;
     print(pi);
     print(e);
-    print(2 * (pi + e - 1) / 3);
     print(abs(e - pi));
     print(sin(pi));
     print(cos(pi));
