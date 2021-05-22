@@ -107,13 +107,10 @@ except (BaseException, Exception):
 finally:
     write(syntaxRoot, "SyntaxAnalyzer")
     write(semanticRoot, "SemanticAnalyzer")
-    print("-----------------------------------------Symbol Table------------------------------------------")
-    print("------------------------------Declared Variables & Functions are:------------------------------")
+    print("\n------------------------------Declared Variables & Functions are:------------------------------")
     pprint(SymbolTable.variables)
     pprint(SymbolTable.functions)
 
-    var = [str(var_key) for var_key in SymbolTable.variables.keys()]
-    func = [str(func_key) for func_key in SymbolTable.functions.keys()]
-    symTab = SymTab(var, func)
-    print("------------------------------Symbol Table(s):------------------------------")
+    symTab = SymTab(SymbolTable.variables, SymbolTable.functions)
+    print("\n-----------------------------------------Symbol Table:-----------------------------------------")
     SymTab.draw(symTab)
